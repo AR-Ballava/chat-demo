@@ -11,16 +11,20 @@ const Chat = () => {
     const [sender, setSender] = useState("");
     const [messageContent, setMessageContent] = useState("");
 
-  let check = false;
-  function MyComponent() {
-    useEffect(() => {
-      if (!check) {
-        connect();
-        check = true;
-      }
-    }, []);
-  }
-  MyComponent();
+  // let check = false;
+  // function MyComponent() {
+  //   useEffect(() => {
+  //     if (!check) {
+  //       connect();
+  //       check = true;
+  //     }
+  //   }, []);
+  // }
+  // MyComponent();
+  useEffect(() => {
+    connect();
+  }, [])
+  
     
     const connect = () =>{
         const socket = new SockJS("https://noncommunicating-princess-sinusoidally.ngrok-free.dev/chat");

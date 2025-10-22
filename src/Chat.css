@@ -10,3 +10,6 @@ body{
     position: absolute;
     top: 100%;
 }
+button{
+    background-color: rgb(255, 255, 49);
+}
