@@ -1,0 +1,12 @@
+body{
+    background-color: rgba(76, 130, 148, 0.899);
+}
+.mainbox{
+    position: relative;
+    width: 100vw;
+    height: 80vh;
+}
+.input{
+    position: absolute;
+    top: 100%;
+}

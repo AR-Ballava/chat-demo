@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import SockJS from 'sockjs-client';
 import Stomp from "stompjs"
+import  './Chat.css'
 
 const Chat = () => {
 
     const [stompClient, setStompClient] = useState(null);
     const [connected, setConnected] = useState(false);
     const [message, setMessage] = useState([]);
-    const [sender, setSender] = useState( "");
+    const [sender, setSender] = useState("");
     const [messageContent, setMessageContent] = useState("");
 
+  let check = false;
+  function MyComponent() {
     useEffect(() => {
-      if(!stompClient){
+      if (!check) {
         connect();
+        check = true;
       }
-    }, [])
+    }, []);
+  }
+  MyComponent();
     
     const connect = () =>{
-        const socket = new SockJS("http://localhost:8080/chat");
+        const socket = new SockJS("https://noncommunicating-princess-sinusoidally.ngrok-free.dev/");
         const stomp = Stomp.over(socket);
 
         stomp.connect({}, (frame) => {
@@ -46,12 +52,12 @@ const Chat = () => {
 
   return (
     <>
-        <div className="container mt-4">
-      <h1 className="text-center">Real-Time Chat Application</h1>
+      <div className="container mt-4 mainbox">
+      <h1 className="text-center" style={{color:'yellow', fontWeight:'bolder'}}>Real-Time Chat Application</h1>
 
       <div
         className="border rounded p-3 mb-3"
-        style={{ height: "300px", overflowY: "auto" }}
+        style={{ height: "300px", overflowY: "auto"}}
       >
         {message.map((msg, index) => (
           <div key={index} className="border-bottom mb-1">
@@ -60,7 +66,8 @@ const Chat = () => {
         ))}
       </div>
 
-      <div className="input-group mb-3">
+      <div className="input container">
+        <div className="input-group mb-3">
         <input
           value={sender}
           onChange={(e) => setSender(e.target.value)}
@@ -86,6 +93,7 @@ const Chat = () => {
         >
           Send
         </button>
+      </div>
       </div>
     </div>
     </>
