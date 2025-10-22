@@ -91,7 +91,7 @@ const Chat = () => {
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         />
         <button
-          className="btn btn-primary"
+          className="btn btn-warning"
           onClick={sendMessage}
           disabled={!connected}
         >
