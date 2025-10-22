@@ -30,7 +30,7 @@ const Chat = () => {
         const socket = new SockJS("https://noncommunicating-princess-sinusoidally.ngrok-free.dev/chat");
         const stomp = Stomp.over(socket);
 
-        stomp.connect({}, (frame) => {
+        stomp.connect({}, (frame) => {  
             console.log("Connected : " + frame);
             setConnected(true);
             setStompClient(stomp);
