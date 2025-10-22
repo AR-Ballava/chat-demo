@@ -27,7 +27,7 @@ const Chat = () => {
   
     
     const connect = () =>{
-        const socket = new SockJS("https://noncommunicating-princess-sinusoidally.ngrok-free.dev/chat");
+        const socket = new SockJS("https://chat-demo-backend-production-69c0.up.railway.app/");
         const stomp = Stomp.over(socket);
 
         stomp.connect({}, (frame) => {  
