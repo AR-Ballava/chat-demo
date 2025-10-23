@@ -9,7 +9,9 @@ const Chat = () => {
     const [connected, setConnected] = useState(false);
     const [message, setMessage] = useState([]);
     const [sender, setSender] = useState("");
+    const [receiver, setReceiver] = useState("");
     const [messageContent, setMessageContent] = useState("");
+    const [time, setTime] = useState();
 
   // let check = false;
   // function MyComponent() {
@@ -35,9 +37,16 @@ const Chat = () => {
             setConnected(true);
             setStompClient(stomp);
 
+            //public chat
             stomp.subscribe("/topic/message", (msg) =>{
                 const body = JSON.parse(msg.body);
                 setMessage((perv) => [...perv, body]);
+            });
+
+            //private chat
+            stomp.subscribe(`/user/${sender}/queue/private`, (msg) => {
+              const body = JSON.parse(msg.body);
+              setMessage((perv) => [...perv, {...body, private:true}]);
             });
         });
     };
@@ -46,7 +55,8 @@ const Chat = () => {
         if(stompClient && sender.trim() != "" && messageContent.trim() != ""){
             const chatMessage = {
                 sender: sender,
-                content: messageContent
+                content: messageContent,
+                time: time
             };
 
             stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage));
@@ -54,18 +64,41 @@ const Chat = () => {
         };
     };
 
+    const sendPrivateMessage = () =>{
+      if(stompClient && sender.trim() && receiver.trim() != "" && messageContent.trim() != ""){
+            const chatMessage = {
+                sender: sender,
+                receiver: receiver,
+                content: messageContent,
+                time: time
+            };
+            
+
+            stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
+            setMessageContent("");
+        };
+    };
+  
+
   return (
     <>
-      <div className="container mt-4 mainbox">
-      <h1 className="text-center" style={{color:'yellow', fontWeight:'bolder'}}>Real-Time Chat Application</h1>
+      <h1 className="text-center m-3" style={{color:'yellow', fontWeight:'bolder'}}>Rahuls Real-Time Chat Application</h1>
+      <div className="container mt-1 mainbox">
 
-      <div
-        className="border rounded p-3 mb-3"
-        style={{ height: "300px", overflowY: "auto"}}
-      >
+
+      <div className="box">
         {message.map((msg, index) => (
-          <div key={index} className="border-bottom mb-1">
-            <strong>{msg.sender}:</strong> {msg.content}
+          <div key={index} className="border-bottom mb-2 parent" id={msg.sender == sender ? "you" : "other"}>
+
+            <div className="child1">
+              {msg.content}
+            </div>
+
+            <div className="child2">
+              <div className="det">{msg.sender}</div>
+              <div className="det">{msg.time.substring(11, 16)}</div>
+            </div>
+            
           </div>
         ))}
       </div>
@@ -101,7 +134,7 @@ const Chat = () => {
       </div>
     </div>
     </>
-  )
-}
+  );
+};
 
-export default Chat
+export default Chat;
