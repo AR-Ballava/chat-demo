@@ -29,7 +29,7 @@ const Chat = () => {
   
     
     const connect = () =>{
-        const socket = new SockJS("https://chat-demo-backend-production-6f61.up.railway.app/");
+        const socket = new SockJS("https://chat-demo-backend-production-6f61.up.railway.app/chat");
         const stomp = Stomp.over(socket);
 
         stomp.connect({}, (frame) => {  
