@@ -28,7 +28,7 @@ body{
 }
 
 .box {
-  overflow-y: auto;
+overflow-y: auto;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 12px;
@@ -37,9 +37,6 @@ body{
   display: flex;
   flex-direction: column;
   /* gap: 0px; */
-}
-.box::-webkit-scrollbar{
-  display: none;
 }
 
 /* Message bubble base */

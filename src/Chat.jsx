@@ -1,26 +1,35 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SockJS from 'sockjs-client';
 import Stomp from "stompjs"
 import  './Chat.css'
 
 const Chat = () => {
 
-  const [stompClient, setStompClient] = useState(null);
-  const [connected, setConnected] = useState(false);
-  const [message, setMessage] = useState([]);
-  const [sender, setSender] = useState("");
-  const [receiver, setReceiver] = useState("");
-  const [messageContent, setMessageContent] = useState("");
-  const [time, setTime] = useState();
+    const [stompClient, setStompClient] = useState(null);
+    const [connected, setConnected] = useState(false);
+    const [message, setMessage] = useState([]);
+    const [sender, setSender] = useState("");
+    const [receiver, setReceiver] = useState("");
+    const [messageContent, setMessageContent] = useState("");
+    const [time, setTime] = useState();
 
+  // let check = false;
+  // function MyComponent() {
+  //   useEffect(() => {
+  //     if (!check) {
+  //       connect();
+  //       check = true;
+  //     }
+  //   }, []);
+  // }
+  // MyComponent();
   useEffect(() => {
     connect();
   }, [])
   
     
     const connect = () =>{
-        const socket = new SockJS("chat-demo-backend-production-6f61.up.railway.app");
-        // const socket = new SockJS("http://localhost:8080/chat");
+        const socket = new SockJS("https://chat-demo-backend-production-69c0.up.railway.app/chat");
         const stomp = Stomp.over(socket);
 
         stomp.connect({}, (frame) => {  
@@ -35,12 +44,9 @@ const Chat = () => {
             });
 
             //private chat
-            // stomp.subscribe(`/user/queue/private`, (msg) => {
-            //   const body = JSON.parse(msg.body);
-            //   setMessage((perv) => [...perv, {...body, private:true}]);
-            // });
-            stomp.subscribe(`/queue/private-${sender}`, (msg) => {
-            setMessage((prev) => [...prev, { ...body, private: true }]);
+            stomp.subscribe(`/user/${sender}/queue/private`, (msg) => {
+              const body = JSON.parse(msg.body);
+              setMessage((perv) => [...perv, {...body, private:true}]);
             });
         });
     };
@@ -73,11 +79,6 @@ const Chat = () => {
         };
     };
   
-  const containRef = useRef(null);
-  useEffect(() => {
-    containRef.current.scrollTop = containRef.current.scrollHeight;
-  }, [message])
-  
 
   return (
     <>
@@ -85,7 +86,7 @@ const Chat = () => {
       <div className="container mt-1 mainbox">
 
 
-      <div className="box" ref={containRef}>
+      <div className="box">
         {message.map((msg, index) => (
           <div key={index} className="border-bottom mb-2 parent" id={msg.sender == sender ? "you" : "other"}>
 
@@ -122,27 +123,12 @@ const Chat = () => {
           placeholder="type a message..."
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         />
-        <input
-          value={receiver}
-          onChange={(e) => setReceiver(e.target.value)}
-          className="form-control"
-          type="text"
-          placeholder="private user name"
-          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-        />
         <button
           className="btn btn-warning"
           onClick={sendMessage}
           disabled={!connected}
         >
           Send
-        </button>
-        <button
-          className="btn btn-danger"
-          onClick={sendPrivateMessage}
-          disabled={!connected}
-        >
-          Send Private
         </button>
       </div>
       </div>
@@ -153,3 +139,4 @@ const Chat = () => {
 
 export default Chat;
 
+// just try
