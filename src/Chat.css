@@ -1,12 +1,16 @@
-body{
-    background-color: rgba(25, 28, 28, 0.899);
-    width: 100%;
-    height: 100%;
+
+html, body, #root {
+  height: 100%;
+  background-color: rgba(25, 28, 28, 0.899);
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* removes scroll */
 }
 .mainbox{
     position: relative;
     width: 90vw;
-    height: 70vh;
+    max-width: 900px;
+    height: 69vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,9 +19,13 @@ body{
     position: absolute;
     top: 100%;
     padding: 10px;
-  width: clamp(400px, 90vw, 900px);
-
+    width: 90vw;
+    max-width: 900px;
 }
+/* .input-box{
+  background-color: red;
+  height: 500px;
+} */
 /* .box{
     height: 300px;
     width: 80vw;
@@ -31,9 +39,12 @@ body{
 overflow-y: auto;
   border: 1px solid #ccc;
   border-radius: 10px;
-  padding: 12px;
-  height: clamp(500px, 60vh, 600px);
-  width: clamp(400px, 90vw, 900px);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: clamp(250px, 60vh, 600px);
+  /* width: clamp(400px, 90vw, 900px); */
+  width: 90vw;
+  max-width: 900px;
   display: flex;
   flex-direction: column;
   /* gap: 0px; */
@@ -44,7 +55,8 @@ overflow-y: auto;
   display: flex;
   flex-direction: column;
   width: min(150px, 70%);
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-radius: 5px;
   color: white;
 }
@@ -77,4 +89,11 @@ overflow-y: auto;
 /* Fine-tune spacing */
 .det {
   margin-right: 5px;
+}
+
+
+/* //header line  */
+h1{
+  font-size: clamp(2vh, 5vw, 50px);
+  font-weight: 900;
 }
