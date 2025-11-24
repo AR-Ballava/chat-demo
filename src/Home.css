@@ -29,7 +29,7 @@ html, body, #root {
     border-radius: 10px;
     flex-wrap: wrap;
     background-origin: padding-box;
-    border: 2px solid grey;
+    border: 2px solid #ffc107;
 }
 
 .btn-box{
@@ -43,8 +43,8 @@ html, body, #root {
     color: #ffffff;;
     font-size: x-large;
     font-weight: bold;
-    background: grey;
-    border: 2px solid white;
+    background: #191C1CE5;
+    border: 2px solid grey;
 
 }
 
