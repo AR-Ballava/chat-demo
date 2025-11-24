@@ -56,11 +56,11 @@ const Chat = () => {
 
   const sendMessage = () => {
     if (stompClient && sender.trim() !== "" && messageContent.trim() !== "") {
-      const time = new Date().toISOString();
+
       const chatMessage = {
         sender: sender,
         content: messageContent,
-        time: time,
+         time: new Date().toISOString() 
       };
 
       stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage));
