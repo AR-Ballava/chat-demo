@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";   // ⭐ ADDED useRef
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import "./Chat.css";
@@ -8,16 +8,17 @@ const Chat = () => {
   const [connected, setConnected] = useState(false);
   const [message, setMessage] = useState([]);
 
-  // Name system
-  const [savedName, setSavedName] = useState(null); // name from sessionStorage
-  const [typedName, setTypedName] = useState(""); 
-  const [sender, setSender] = useState(""); 
+  // ⭐ Auto-scroll reference
+  const bottomRef = useRef(null);   // ⭐ ADDED
+
+  const [savedName, setSavedName] = useState(null);
+  const [typedName, setTypedName] = useState("");
+  const [sender, setSender] = useState("");
 
   const [receiver, setReceiver] = useState("");
   const [messageContent, setMessageContent] = useState("");
   const [time, setTime] = useState("");
 
-  // Load saved name (sessionStorage clears on tab close/refresh)
   useEffect(() => {
     const stored = sessionStorage.getItem("chat_username");
     if (stored) {
@@ -31,13 +32,12 @@ const Chat = () => {
   }, []);
 
   const connect = () => {
-    const socket = new SockJS(
+    // const socket = new SockJS("http://localhost:8080/chat");
       "https://chat-room-backend-1-s85w.onrender.com/chat"
-    );
+
     const stomp = Stomp.over(socket);
 
     stomp.connect({}, (frame) => {
-      console.log("Connected : " + frame);
       setConnected(true);
       setStompClient(stomp);
 
@@ -55,7 +55,6 @@ const Chat = () => {
     });
   };
 
-  // send public message
   const sendMessage = () => {
     if (stompClient && sender.trim() !== "" && messageContent.trim() !== "") {
       const time = new Date().toISOString();
@@ -70,7 +69,6 @@ const Chat = () => {
     }
   };
 
-  // send private message
   const sendPrivateMessage = () => {
     if (
       stompClient &&
@@ -90,9 +88,16 @@ const Chat = () => {
     }
   };
 
-  // ----------------------------------------------------------------
-  // NAME SCREEN — shows every time because sessionStorage resets
-  // ----------------------------------------------------------------
+  // ⭐ AUTO-SCROLL FUNCTION
+  const scrollToBottom = () => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // ⭐ RUN AUTO-SCROLL WHENEVER MESSAGES UPDATE
+  useEffect(() => {
+    scrollToBottom();
+  }, [message]);   // ⭐ ADDED
+
   if (!savedName) {
     return (
       <div style={{ padding: "40px", textAlign: "center", color: "white" }}>
@@ -124,16 +129,13 @@ const Chat = () => {
     );
   }
 
-  // ----------------------------------------------------------------
-  // MAIN CHAT UI
-  // ----------------------------------------------------------------
   return (
     <>
       <h2
         className="text-center mt-3 "
         style={{ color: "rgba(255, 255, 0, 0.853)", fontWeight: "normal" }}
       >
-        Wait for peopel's to join or say hello?
+        Wait for people to join or say hello?
       </h2>
 
       <div className="container mt-1 mainbox">
@@ -154,6 +156,9 @@ const Chat = () => {
               </div>
             </div>
           ))}
+
+          {/* ⭐ AUTO-SCROLL TARGET */}
+          <div ref={bottomRef} />   {/* ⭐ ADDED */}
         </div>
 
         <div className="input container">
