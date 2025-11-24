@@ -41,8 +41,8 @@ html, body, #root {
     border-radius: 5px;
     /* background-color: #4E61D3; */
     color: #ffffff;;
-    font-size: x-large;
-    font-weight: bold;
+    font-size: large;
+    font-weight: 500;
     background: #191C1CE5;
     border: 2px solid grey;
 
