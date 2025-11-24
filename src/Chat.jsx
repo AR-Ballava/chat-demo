@@ -32,9 +32,8 @@ const Chat = () => {
   }, []);
 
   const connect = () => {
-    // const socket = new SockJS("http://localhost:8080/chat");
-      "https://chat-room-backend-1-s85w.onrender.com/chat"
-
+  
+    const socket = new SockJS("https://chat-room-backend-1-s85w.onrender.com/chat");
     const stomp = Stomp.over(socket);
 
     stomp.connect({}, (frame) => {
