@@ -24,11 +24,13 @@ const Home = () => {
                 <div className="main-box container">
                     <div className="class-box"> <h1>WELCOME YOU TO REAL TIME-CHAT ROOM</h1></div>
                     <div className="home-box">
+                        
                         <button onClick={() => navigate("/chat")} className="btn-box btn btn-warning ">JOIN CHAT</button>
                         <button onClick={clickHandler} className="btn-box btn btn-warning "> {copied ? "Link Copied ✓" : "COPY LINK"}</button>
 
                     </div>
                 </div>
+                
 
                 {/* Toast UI */}
                 {showToast && (
@@ -36,7 +38,6 @@ const Home = () => {
             Link Copied!
             </div>
         )}          
-
 
         </>
     );

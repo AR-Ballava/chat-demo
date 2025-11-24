@@ -43,18 +43,9 @@ html, body, #root {
     color: #ffffff;;
     font-size: x-large;
     font-weight: bold;
-    /* background: rgb(204, 222, 66); */
+    background: grey;
+    border: 2px solid white;
 
-}
-
-.navbar{
-    background-color: #494b4e;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #ffc107;
-    
 }
 
 
@@ -94,5 +85,7 @@ html, body, #root {
 }
 h1{
     text-align: center;
+    /* color: yellow; */
+    color: #ffc107;
     transform: translateY(clamp(20px, 5vw, 200px));
 }

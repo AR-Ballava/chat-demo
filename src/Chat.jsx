@@ -132,7 +132,7 @@ const Chat = () => {
     <>
       <h2
         className="text-center mt-3 "
-        style={{ color: "rgba(255, 255, 0, 0.853)", fontWeight: "normal" }}
+        style={{ color: "#ffc107", fontWeight: "600" }}
       >
         Wait for people to join or say hello?
       </h2>
