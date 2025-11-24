@@ -58,6 +58,7 @@ const Chat = () => {
   // send public message
   const sendMessage = () => {
     if (stompClient && sender.trim() !== "" && messageContent.trim() !== "") {
+      const time = new Date().toISOString();
       const chatMessage = {
         sender: sender,
         content: messageContent,
