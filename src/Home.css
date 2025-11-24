@@ -28,6 +28,8 @@ html, body, #root {
     /* background-color: #F4F754; */
     border-radius: 10px;
     flex-wrap: wrap;
+    background-origin: padding-box;
+    border: 2px solid grey;
 }
 
 .btn-box{
@@ -92,5 +94,5 @@ html, body, #root {
 }
 h1{
     text-align: center;
-    transform: translateY(clamp(20px, 10vw, 200px));
+    transform: translateY(clamp(20px, 5vw, 200px));
 }
