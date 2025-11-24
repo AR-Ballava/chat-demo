@@ -26,11 +26,11 @@ html, body, #root {
   background-color: red;
   height: 500px;
 } */
-/* .box{
+.box{
     height: 300px;
     width: 80vw;
     overflow-y: auto;
-} */
+}
 ::-webkit-scrollbar{
     display: none;
 }
